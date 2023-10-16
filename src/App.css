@@ -116,7 +116,6 @@ img{
   /* box-shadow: 2px 2px 10px 1px var(--Dark_Gray); */
   background-color: var(--White);
 }
-
 p{
   padding:0;
   display: flex;
@@ -144,9 +143,14 @@ input{
   width:100vw;
   display:flex;
   justify-content: center;
+  padding:2rem;
+}
+.loading-text{
+  font-size:5rem;
+  width: auto;
 }
 .no-data{
-  font-size: 20px;
+  font-size: 5rem;
   font-weight: bold;
   width:100%;
   display:flex;

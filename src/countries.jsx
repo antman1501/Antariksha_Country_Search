@@ -58,7 +58,7 @@ function Country(){
             </div>
         </div>
         </div>
-    }):<div className='no-data' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>No Data</div>}
+    }):<div className='no-data' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>No Such Countries Found</div>}
     </div>
     )
 }

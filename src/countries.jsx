@@ -9,7 +9,7 @@ function Country(){
 
     const [countries,setCountries] = useState([]);
 
-    const [filteredCountry, setFilteredCountry] = useState([]);
+    // const [filteredCountry, setFilteredCountry] = useState([]);
 
     useEffect(() => {
         async function fetchMyAPI() {
@@ -23,21 +23,24 @@ function Country(){
         fetchMyAPI()
     }, []);
 
-    function filterCountry(){
-        setFilteredCountry(countries.filter(match=>
-            match.name.common.toLowerCase().includes(countryContext.toLowerCase()) && match.region.includes(regionContext)
-        ))
-    }
+    // function filterCountry(){
+    //     setFilteredCountry(countries.filter(match=>
+    //         match.name.common.toLowerCase().includes(countryContext.toLowerCase()) && match.region.includes(regionContext)
+    //     ))
+    //     console.log(filteredCountry);
+    // }
 
     //console.log(props.findRegion);
     //countries.map(item=>console.log(item.name.common))
 
     return(
+        
     <div className='countries'>
         {
         countries.filter(match=>
             match.name.common.toLowerCase().includes(countryContext.toLowerCase()) && match.region.includes(regionContext)
-        ).map((country,index)=>{
+        ).length!=0 ?countries.filter(match=>
+            match.name.common.toLowerCase().includes(countryContext.toLowerCase()) && match.region.includes(regionContext)).map((country,index)=>{
       return <div className='country' key={index} style={{backgroundColor: darkContext? 'hsl(209, 23%, 22%)':'white',boxShadow: darkContext? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
         <div className='flag'>
             <img src={country.flags.png}></img>
@@ -55,7 +58,7 @@ function Country(){
             </div>
         </div>
         </div>
-    })}
+    }):<div className='no-data' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>No Data</div>}
     </div>
     )
 }

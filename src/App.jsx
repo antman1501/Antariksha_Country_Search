@@ -2,7 +2,7 @@ import React,{ useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Country from './countries'
+import Country  from './countries'
 import LoadingScreen from './loadingScreen'
 
 export const searchCountryContext = React.createContext();
@@ -22,6 +22,7 @@ function App() {
   async function loadScreen(){
     await setTimeout(()=>{setLoading(false)},1000);
   }
+
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -45,7 +46,7 @@ function App() {
       <div className='search'>
         <div className='search-button' style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',boxShadow: isDark? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
           <p className="material-symbols-outlined" style={{color: isDark? 'white':'hsl(200, 15%, 8%)'}}>search</p>
-          <input type='text' placeholder='Search for a country' value={searchCountry} onChange={e=>{setSearchCountry(e.target.value);setLoading(true)}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)'}} className={`${isDark? "white-placeholder":""}`}></input>
+          <input type='text' placeholder='Search for a country' value={searchCountry} onChange={e=>{setSearchCountry(e.target.value);setLoading(true);}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)'}} className={`${isDark? "white-placeholder":""}`}></input>
         </div>
         <select className='region' value={searchRegion} onChange={e=>{setSearchRegion(e.target.value);setLoading(true)}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)',boxShadow: isDark? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
           <option value=''>All Region</option>
@@ -56,7 +57,7 @@ function App() {
           <option value='Oceania'>Oceania</option>
         </select>
       </div>
-      {loading ? <LoadingScreen>{loadScreen()}</LoadingScreen>:
+      {loading ? <LoadingScreen dark={isDark}>{loadScreen()}</LoadingScreen>:
       (<searchCountryContext.Provider value={searchCountry}>
         <searchRegionContext.Provider value={searchRegion}>
           <isDarkContext.Provider value={isDark}>

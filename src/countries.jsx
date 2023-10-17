@@ -1,10 +1,23 @@
 import React,{ useEffect, useState, useContext } from 'react';
 import {isDarkContext, countryAllContext } from './App';
 
-function Country(){
+function Country(props){
 
     const darkContext=useContext(isDarkContext);
     const allCountryContext=useContext(countryAllContext);
+
+    if(props.sorted=='ascend by population'){
+      allCountryContext.sort((a,b)=>a.population-b.population);
+    }
+    else if(props.sorted=='descend by population'){
+      allCountryContext.sort((a,b)=>b.population-a.population);
+    }
+    else if(props.sorted=='ascend by area'){
+      allCountryContext.sort((a,b)=>a.area-b.area);
+    }
+    else if(props.sorted=='descend by area'){
+      allCountryContext.sort((a,b)=>b.area-a.area);
+    }
 
     return(
         

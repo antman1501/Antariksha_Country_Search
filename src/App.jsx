@@ -18,26 +18,82 @@ function App() {
 
   const [isDark, setIsDark]=useState(false);
 
-  const [countries,setCountries] = useState([]);
+  const [countries, setCountries] = useState([]);
 
-    useEffect(() => {
-        async function fetchMyAPI() {
-        let response = await fetch('https://restcountries.com/v3.1/all')
-        response = await response.json();
-        //console.log(document.querySelector('.container').className)
-        //console.log(response);
-        setCountries(response)
-        }
+  const [searchSubRegion, setSearchSubRegion]=useState('');
 
-        fetchMyAPI();
-    }, []);
+  const [sorting, setSorting]=useState('');
 
-    const filterCountry=countries.filter((m)=>m.name.common.toLowerCase().includes(searchCountry.toLowerCase()))
-                                  .filter((m)=>m.region.includes(searchRegion));
+  //const [countryDup,setCountryDup]=useState([]);
 
+  //const [subRegion,setSubRegion]=useState([]);
+
+  useEffect(() => {
+    async function fetchMyAPI() {
+      let response = await fetch('https://restcountries.com/v3.1/all')
+      response = await response.json();
+      //console.log(document.querySelector('.container').className)
+      //console.log(response);
+      setCountries(response);
+      setCountries((oldValue)=>{
+        return oldValue.map((m)=>{
+          if(m.subregion==undefined){
+            m.subregion='';
+          }
+          return m;
+        })
+      })
+      // setCountryDup(response);
+      // setCountryDup((oldValue)=>{
+      //   return oldValue.map((m)=>{
+      //     if(m.subregion==undefined){
+      //       m.subregion='';
+      //     }
+      //     return m;
+      //   })
+      // })
+    }
+    fetchMyAPI();
+  }, []);
+
+  const filterCountry=countries.filter((m)=>m.name.common.toLowerCase().includes(searchCountry.toLowerCase()))
+                                .filter((m)=>m.region.includes(searchRegion))
+                                .filter((m)=>m.subregion.includes(searchSubRegion));
+    
+  const subRegions=[...new Set(countries.filter((m)=>m.region.includes(searchRegion))
+                                      .map((m)=>m.subregion))];
+  
+  //const subReg=[...new Set(countries.map((m)=>m.subregion))];
+
+  //const [filtered,setFiltered]=useState(filterCountry);
+
+  function regionChange(reg){
+    if(reg!='')
+    {
+      setSearchSubRegion('');
+    }
+  }
+
+  // function sortCountries(srt){
+  //   if(srt=='ascend by population'){
+  //     setCountries(oldValue=>oldValue.sort((a,b)=>a.population-b.population));
+  //   }
+  //   else if(srt=='descend by population'){
+  //     setCountries(oldValue=>oldValue.sort((a,b)=>b.population-a.population));
+  //   }
+  //   else if(srt=='ascend by area'){
+  //     setCountries(oldValue=>oldValue.sort((a,b)=>a.area-b.area));
+  //   }
+  //   else if(srt=='descend by area'){
+  //     setCountries(oldValue=>oldValue.sort((a,b)=>b.area-a.area));
+  //   }
+  // }
+    
   async function loadScreen(){
     await setTimeout(()=>{setLoading(false)},1000);
   }
+
+  console.log(countries);
   
   return (
     <>
@@ -59,21 +115,37 @@ function App() {
           <p className="material-symbols-outlined" style={{color: isDark? 'white':'hsl(200, 15%, 8%)'}}>search</p>
           <input type='text' placeholder='Search for a country' value={searchCountry} onChange={e=>{setSearchCountry(e.target.value);}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)'}} className={`${isDark? "white-placeholder":""}`}></input>
         </div>
-        <select className='region' value={searchRegion} onChange={e=>{setSearchRegion(e.target.value);}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)',boxShadow: isDark? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
-          <option value=''>All Region</option>
-          <option value='Africa'>Africa</option>
-          <option value='America'>America</option>
-          <option value='Asia'>Asia</option>
-          <option value='Europe'>Europe</option>
-          <option value='Oceania'>Oceania</option>
-        </select>
+        <div className='sort'>
+          <select className='sorting-options' value={sorting} onChange={e=>{setSorting(e.target.value);}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)',boxShadow: isDark? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
+            <option value=''>None</option>
+            <option value='ascend by population'>Sort By Population(Ascending)</option>
+            <option value='descend by population'>Sort By Population(Descending)</option>
+            <option value='ascend by area'>Sort By Area(Ascending)</option>
+            <option value='descend by area'>Sort By Area(Descending)</option>
+          </select>
+        </div>
+        <div className='filter'>
+          <select className='region' value={searchRegion} onChange={e=>{setSearchRegion(e.target.value);regionChange(e.target.value)}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)',boxShadow: isDark? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
+            <option value=''>All Region</option>
+            <option value='Africa'>Africa</option>
+            <option value='America'>America</option>
+            <option value='Asia'>Asia</option>
+            <option value='Europe'>Europe</option>
+            <option value='Oceania'>Oceania</option>
+          </select>
+          <select className='subregion' value={searchSubRegion} onChange={e=>{setSearchSubRegion(e.target.value);}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)',boxShadow: isDark? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
+            <option value=''>All Sub-Region</option>
+            {subRegions.map((m,index)=>{
+              return <option value={m} key={index}>{m}</option>
+            })}
+          </select>
+        </div>
       </div>
-      (<countryAllContext.Provider value={filterCountry}>
+      <countryAllContext.Provider value={filterCountry}>
             <isDarkContext.Provider value={isDark}>
-              <Country/>
+              <Country sorted={sorting}/>
             </isDarkContext.Provider>
       </countryAllContext.Provider>
-      )
     </div>
     }
     </>

@@ -5,13 +5,12 @@ import './App.css'
 import Country  from './countries'
 import LoadingScreen from './loadingScreen'
 
-export const searchCountryContext = React.createContext();
-export const searchRegionContext = React.createContext();
 export const isDarkContext = React.createContext();
+export const countryAllContext = React.createContext();
 
 function App() {
 
-  const [loading, setLoading]=useState(false);
+  const [loading, setLoading]=useState(true);
 
   const [searchCountry, setSearchCountry]=useState('');
 
@@ -19,18 +18,30 @@ function App() {
 
   const [isDark, setIsDark]=useState(false);
 
+  const [countries,setCountries] = useState([]);
+
+    useEffect(() => {
+        async function fetchMyAPI() {
+        let response = await fetch('https://restcountries.com/v3.1/all')
+        response = await response.json();
+        //console.log(document.querySelector('.container').className)
+        //console.log(response);
+        setCountries(response)
+        }
+
+        fetchMyAPI();
+    }, []);
+
+    const filterCountry=countries.filter((m)=>m.name.common.toLowerCase().includes(searchCountry.toLowerCase()))
+                                  .filter((m)=>m.region.includes(searchRegion));
+
   async function loadScreen(){
     await setTimeout(()=>{setLoading(false)},1000);
   }
-
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   },2000);
-  // },[]);
   
   return (
+    <>
+    {loading? <LoadingScreen>{loadScreen()}</LoadingScreen>:
     <div className='container' style={{backgroundColor: isDark? 'hsl(207, 26%, 17%)':'hsl(0, 0%, 98%)',color: isDark? 'white':'hsl(200, 15%, 8%)'}}>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
@@ -46,9 +57,9 @@ function App() {
       <div className='search'>
         <div className='search-button' style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',boxShadow: isDark? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
           <p className="material-symbols-outlined" style={{color: isDark? 'white':'hsl(200, 15%, 8%)'}}>search</p>
-          <input type='text' placeholder='Search for a country' value={searchCountry} onChange={e=>{setSearchCountry(e.target.value);setLoading(true);}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)'}} className={`${isDark? "white-placeholder":""}`}></input>
+          <input type='text' placeholder='Search for a country' value={searchCountry} onChange={e=>{setSearchCountry(e.target.value);}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)'}} className={`${isDark? "white-placeholder":""}`}></input>
         </div>
-        <select className='region' value={searchRegion} onChange={e=>{setSearchRegion(e.target.value);setLoading(true)}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)',boxShadow: isDark? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
+        <select className='region' value={searchRegion} onChange={e=>{setSearchRegion(e.target.value);}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)',boxShadow: isDark? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
           <option value=''>All Region</option>
           <option value='Africa'>Africa</option>
           <option value='America'>America</option>
@@ -57,15 +68,15 @@ function App() {
           <option value='Oceania'>Oceania</option>
         </select>
       </div>
-      {loading ? <LoadingScreen dark={isDark}>{loadScreen()}</LoadingScreen>:
-      (<searchCountryContext.Provider value={searchCountry}>
-        <searchRegionContext.Provider value={searchRegion}>
-          <isDarkContext.Provider value={isDark}>
-            <Country/>
-          </isDarkContext.Provider>
-        </searchRegionContext.Provider>
-      </searchCountryContext.Provider>)}
+      (<countryAllContext.Provider value={filterCountry}>
+            <isDarkContext.Provider value={isDark}>
+              <Country/>
+            </isDarkContext.Provider>
+      </countryAllContext.Provider>
+      )
     </div>
+    }
+    </>
   )
 }
 export default App

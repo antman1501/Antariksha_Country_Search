@@ -1,9 +1,11 @@
 import React,{ useEffect, useState } from 'react'
+import { Routes, Route} from 'react-router-dom'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Country  from './countries'
 import LoadingScreen from './loadingScreen'
+import { SelectCountry } from './selectCountry'
 
 export const isDarkContext = React.createContext();
 export const countryAllContext = React.createContext();
@@ -98,6 +100,7 @@ function App() {
   return (
     <>
     {loading? <LoadingScreen>{loadScreen()}</LoadingScreen>:
+    
     <div className='container' style={{backgroundColor: isDark? 'hsl(207, 26%, 17%)':'hsl(0, 0%, 98%)',color: isDark? 'white':'hsl(200, 15%, 8%)'}}>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
@@ -130,6 +133,7 @@ function App() {
             <option value='Africa'>Africa</option>
             <option value='America'>America</option>
             <option value='Asia'>Asia</option>
+            <option value='Antarctic'>Antarctic</option>
             <option value='Europe'>Europe</option>
             <option value='Oceania'>Oceania</option>
           </select>

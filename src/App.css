@@ -203,7 +203,7 @@ input{
   display:flex;
 }
 .selected-flag{
-  width:50%;
+  width:400px;
   height:50vh;
 }
 .selected-flag-img{
@@ -292,5 +292,6 @@ input{
   .selected-flag{
     display:flex;
     justify-content: flex-start;
+    width:300px;
   }
 }

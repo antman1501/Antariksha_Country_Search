@@ -26,11 +26,10 @@ function Country(props){
     const navigate=useNavigate();
 
     return(
-        <Routes>
-        <Route path='/' element={<div className='countries'>
+      <div className='countries'>
         {
         allCountryContext.length!=0 ?allCountryContext.map((country)=>{
-      return <div className='country' key={country.name.common} onClick={(e)=>{setSelectCountry(country.name.common);navigate('select')}} style={{backgroundColor: darkContext? 'hsl(209, 23%, 22%)':'white',boxShadow: darkContext? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
+      return <div className='country' key={country.name.common} onClick={(e)=>{setSelectCountry(country.name.common);navigate(`country/${country.cca3}`)}} style={{backgroundColor: darkContext? 'hsl(209, 23%, 22%)':'white',boxShadow: darkContext? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
         <div className='flag'>
             <img src={country.flags.png}></img>
         </div>
@@ -48,9 +47,7 @@ function Country(props){
         </div>
         </div>
     }):<div className='no-data' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>No Such Countries Found</div>}
-    </div>}></Route>
-      <Route path='select' element={<SelectCountry selected={selectCountry}/>}></Route>
-      </Routes>
+    </div>
     )
 }
 

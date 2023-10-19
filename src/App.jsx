@@ -32,8 +32,8 @@ function App() {
 
   useEffect(() => {
     async function fetchMyAPI() {
-      let response = await fetch('https://restcountries.com/v3.1/all')
-      response = await response.json();
+      let response1 = await fetch('https://restcountries.com/v3.1/all')
+      let response = await response1.json();
       //console.log(document.querySelector('.container').className)
       //console.log(response);
       setCountries(response);
@@ -113,7 +113,8 @@ function App() {
           <p className="material-symbols-outlined" style={{color: isDark? 'white':'hsl(200, 15%, 8%)'}}>dark_mode</p><p style={{color: isDark? 'white':'hsl(200, 15%, 8%)'}}>Dark Mode</p>
         </div>
       </div>
-      <div className='search'>
+      <Routes>
+        <Route path='/' element={<><div className='search'>
         <div className='search-button' style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',boxShadow: isDark? '':'2px 2px 8px 0 var(--Dark_Gray)'}}>
           <p className="material-symbols-outlined" style={{color: isDark? 'white':'hsl(200, 15%, 8%)'}}>search</p>
           <input type='text' placeholder='Search for a country' value={searchCountry} onChange={e=>{setSearchCountry(e.target.value);}} style={{backgroundColor: isDark? 'hsl(209, 23%, 22%)':'white',color: isDark? 'white':'hsl(200, 15%, 8%)'}} className={`${isDark? "white-placeholder":""}`}></input>
@@ -149,7 +150,13 @@ function App() {
             <isDarkContext.Provider value={isDark}>
               <Country sorted={sorting}/>
             </isDarkContext.Provider>
-      </countryAllContext.Provider>
+      </countryAllContext.Provider></>}></Route>
+      <Route path='country/:id' element={<countryAllContext.Provider value={filterCountry}>
+            <isDarkContext.Provider value={isDark}>
+              <SelectCountry/>
+            </isDarkContext.Provider>
+      </countryAllContext.Provider>}></Route>
+      </Routes>
     </div>
     }
     </>

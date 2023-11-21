@@ -272,7 +272,7 @@ input{
     width:10rem;
   }
 }
-@media screen and (width<=900px) {
+@media screen and (width<=1000px) {
   .selected{
     display: flex;
     flex-direction: column;
@@ -293,5 +293,11 @@ input{
     display:flex;
     justify-content: flex-start;
     width:300px;
+  }
+  .column-2{
+    margin-top:20px;
+  }
+  .border-countries{
+    margin-top: 20px;
   }
 }

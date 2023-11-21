@@ -87,29 +87,33 @@ export const SelectCountry = () => {
       <div className='selected-information'>
         <div className='selected-country-name' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{country.name.common}</div>
         <div className='selected-info'>
-          <div className='info-selected'>
-            <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Native Name:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{Object.keys(country.name).includes('nativeName')?Object.values(country.name.nativeName)[0].official:''}</p>
+          <div className='column-1'>
+            <div className='info-selected'>
+              <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Native Name:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{Object.keys(country.name).includes('nativeName')?Object.values(country.name.nativeName)[0].official:''}</p>
+            </div>
+            <div className='info-selected'>
+              <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Population:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{country.population}</p>
+            </div>
+            <div className='info-selected'>
+              <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Region:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{country.region}</p>
+            </div>
+            <div className='info-selected'>
+              <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Sub Region:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{country.subregion}</p>
+            </div>
+            <div className='info-selected'>
+              <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Capital:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{country.capital}</p>
+            </div>
           </div>
-          <div className='info-selected'>
-            <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Population:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{country.population}</p>
-          </div>
-          <div className='info-selected'>
-            <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Region:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{country.region}</p>
-          </div>
-          <div className='info-selected'>
-            <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Sub Region:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{country.subregion}</p>
-          </div>
-          <div className='info-selected'>
-            <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Capital:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{country.capital}</p>
-          </div>
-          <div className='info-selected'>
-            <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Top Level Domain:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{Object.keys(country).includes('tld')?country.tld.toString():''}</p>
-          </div>
-          <div className='info-selected'>
-            <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Currencies:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{Object.keys(country).includes('currencies')?Object.values(country.currencies)[0].name:''}</p>
-          </div>
-          <div className='info-selected'>
-            <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Languages:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{Object.keys(country).includes('languages')?Object.values(country.languages).toString():''}</p>
+          <div className='column-2'>
+            <div className='info-selected'>
+              <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Top Level Domain:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{Object.keys(country).includes('tld')?country.tld.toString():''}</p>
+            </div>
+            <div className='info-selected'>
+              <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Currencies:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{Object.keys(country).includes('currencies')?Object.values(country.currencies)[0].name:''}</p>
+            </div>
+            <div className='info-selected'>
+              <p className='selected-country-info-heading' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>Languages:&nbsp;</p><p className='selected-country-info' style={{color: darkContext? 'white':'hsl(200, 15%, 8%)'}}>{Object.keys(country).includes('languages')?Object.values(country.languages).toString():''}</p>
+            </div>
           </div>
         </div>
       </div>
